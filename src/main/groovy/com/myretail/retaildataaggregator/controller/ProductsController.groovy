@@ -19,7 +19,7 @@ class ProductsController {
     @Resource
     AggregatorService aggregatorService
 
-    @GetMapping(value = "{id}")
+    @GetMapping(value = "/{id}")
     Product getProductInfoById(@PathParam("id") String productId) {
         aggregatorService.getProductInfoById(productId)
     }
