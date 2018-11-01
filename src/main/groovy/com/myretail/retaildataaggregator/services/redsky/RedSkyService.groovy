@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate
 import javax.annotation.Resource
 
 @Service
-class RedskyService {
+class RedSkyService {
 
     private static final String BASE_URL = "http://redsky.target.com/v2/pdp"
     private static final String SEARCH_EXCLUSIONS = "excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics"
@@ -17,7 +17,7 @@ class RedskyService {
     @Resource
     RestTemplate restTemplate
 
-    @HystrixCommand
+    @HystrixCommand(fallbackMethod = "searchFallback")
     Product getProductInfoByTcin(String tcin) {
 
         def response = restTemplate.exchange(
@@ -27,5 +27,9 @@ class RedskyService {
                 Product)
 
         response.body as Product
+    }
+
+    Product searchFallback() {
+        null
     }
 }

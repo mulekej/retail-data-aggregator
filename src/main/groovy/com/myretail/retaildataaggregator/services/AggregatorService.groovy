@@ -1,7 +1,7 @@
 package com.myretail.retaildataaggregator.services
 
 import com.myretail.retaildataaggregator.domain.api.Product
-import com.myretail.retaildataaggregator.services.redsky.RedskyService
+import com.myretail.retaildataaggregator.services.redsky.RedSkyService
 import org.springframework.stereotype.Service
 
 import javax.annotation.Resource
@@ -10,12 +10,12 @@ import javax.annotation.Resource
 class AggregatorService {
 
     @Resource
-    RedskyService redskyService
+    RedSkyService redSkyService
 
     Product getProductInfoById(String productId) {
-        def redskyResult = redskyService.getProductInfoByTcin(productId)
+        def redSkyResult = redSkyService.getProductInfoByTcin(productId)
 
-        def name = redskyResult.item.productDescription.title
+        def name = redSkyResult.item.productDescription.title
         new Product(id: productId, name: name)
     }
 
