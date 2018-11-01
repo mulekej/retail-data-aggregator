@@ -30,11 +30,16 @@ ext {
 }
 
 dependencies {
+    
     implementation('org.springframework.boot:spring-boot-starter-actuator')
     implementation('org.springframework.boot:spring-boot-starter-cache')
+    //mongoDB
     implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
+    implementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')
+    //Hystrix
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
+    
     implementation('org.codehaus.groovy:groovy')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
