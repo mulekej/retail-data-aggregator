@@ -13,8 +13,10 @@ class AggregatorService {
     RedskyService redskyService
 
     Product getProductInfoById(String productId) {
+        def redskyResult = redskyService.getProductInfoByTcin(productId)
 
-        new Product(id: productId)
+        def name = redskyResult.item.productDescription.title
+        new Product(id: productId, name: name)
     }
 
 
