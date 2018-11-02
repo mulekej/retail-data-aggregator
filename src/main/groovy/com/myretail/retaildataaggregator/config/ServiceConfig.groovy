@@ -1,6 +1,6 @@
 package com.myretail.retaildataaggregator.config
 
-
+import com.myretail.retaildataaggregator.exception.RedSkyResponseErrorHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
@@ -9,7 +9,9 @@ import org.springframework.web.client.RestTemplate
 class ServiceConfig {
 
     @Bean
-    RestTemplate restTemplate(){
-        new RestTemplate()
+    RestTemplate restTemplate(RedSkyResponseErrorHandler errorHandler){
+        def restTemplate = new RestTemplate()
+        restTemplate.errorHandler = errorHandler
+        restTemplate
     }
 }
