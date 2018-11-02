@@ -21,8 +21,6 @@ class RedSkyResponseErrorHandler extends DefaultResponseErrorHandler {
     @Override
     protected void handleError(ClientHttpResponse response, HttpStatus statusCode) throws IOException {
 
-        if (!statusCode.is2xxSuccessful()) {
-            throw new RedSkyTransactionException("RedSKy Service responded with non-success status=${statusCode.value()}")
-        }
+        throw new RedSkyTransactionException("RedSKy Service responded with non-success status=${statusCode.value()}")
     }
 }
