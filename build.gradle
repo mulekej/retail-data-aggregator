@@ -40,6 +40,9 @@ dependencies {
     //Hystrix
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
     implementation('org.springframework.cloud:spring-cloud-starter-netflix-hystrix-dashboard')
+    //Swagger Page
+    implementation "io.springfox:springfox-swagger2:2.8.0"
+    runtime "io.springfox:springfox-swagger-ui:2.8.0"
 
     implementation('org.codehaus.groovy:groovy')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
