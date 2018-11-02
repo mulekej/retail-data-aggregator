@@ -1,6 +1,6 @@
 package com.myretail.retaildataaggregator.services.redsky
 
-import com.myretail.retaildataaggregator.domain.redsky.Product
+import com.myretail.retaildataaggregator.domain.redsky.Item
 import com.myretail.retaildataaggregator.domain.redsky.ProductWrapper
 import com.myretail.retaildataaggregator.repository.ProductRepository
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
@@ -22,7 +22,7 @@ class RedSkyService {
     ProductRepository priceRepository
 
     @HystrixCommand(fallbackMethod = "searchFallback")
-    Product getProductInfoByTcin(String tcin) {
+    Item getProductInfoByTcin(String tcin) {
 
         def response = restTemplate.exchange(
                 "$BASE_URL/tcin/$tcin?$SEARCH_EXCLUSIONS",
@@ -30,10 +30,10 @@ class RedSkyService {
                 null,
                 ProductWrapper)
 
-        response.body?.product as Product
+        response.body.product.item as Item
     }
 
-    Product searchFallback() {
+    Item searchFallback(String tcin) {
         null
     }
 }

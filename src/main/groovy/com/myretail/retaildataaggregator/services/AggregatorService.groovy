@@ -1,6 +1,7 @@
 package com.myretail.retaildataaggregator.services
 
 import com.myretail.retaildataaggregator.domain.api.Product
+import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.repository.ProductRepository
 import com.myretail.retaildataaggregator.services.redsky.RedSkyService
 import org.springframework.stereotype.Service
@@ -20,12 +21,11 @@ class AggregatorService {
         def redSkyResult = redSkyService.getProductInfoByTcin(productId)
         product = productRepository.getProductById(productId)
 
-        if (redSkyResult && product) {
-            product.name = redSkyResult.item.productDescription.title
+        if (redSkyResult?.tcin && product) {
+            product.name = redSkyResult.productDescription.title
             product
         } else {
-            //throw ProductNotFound Exception
-            null
+            throw new ProductNotFoundException("Product Not Found for ID ${productId}")
         }
     }
 }
