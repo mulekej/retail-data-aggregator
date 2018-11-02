@@ -1,5 +1,7 @@
 package com.myretail.retaildataaggregator.domain.redsky
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 
 class Item {
 
@@ -7,7 +9,8 @@ class Item {
     def bundleComponents
     String dpci
     String upc
-    def productDescription
+    @JsonProperty("product_description")
+    ProductDescription productDescription
     String parentItems
     String buyUrl
     def variation

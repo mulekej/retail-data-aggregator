@@ -7,7 +7,6 @@ class Product {
 
     String id
     String name
-
     @JsonProperty("current_price")
     Price price
 }

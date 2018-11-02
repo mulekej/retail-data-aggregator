@@ -5,6 +5,7 @@ import com.myretail.retaildataaggregator.services.AggregatorService
 import groovy.util.logging.Slf4j
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -19,8 +20,13 @@ class ProductsController {
     @Resource
     AggregatorService aggregatorService
 
-    @GetMapping(value = "/{productId}")
+    @GetMapping("/{productId}")
     Product getProductInfoById(@PathVariable("productId") String productId) {
         aggregatorService.getProductInfoById(productId)
+    }
+
+    @PutMapping("/{productId}")
+    void updateProductInfoById(@PathVariable("productId") String productId) {
+
     }
 }
