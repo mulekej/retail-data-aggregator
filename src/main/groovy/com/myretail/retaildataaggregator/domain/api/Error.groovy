@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 class Error {
 
-    String statusCode
+    int statusCode
     String message
     LocalDateTime timeStamp = LocalDateTime.now()
 }

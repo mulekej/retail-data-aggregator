@@ -18,11 +18,11 @@ class GlobalExceptionHandler {
         }
     }
 
-    ResponseEntity<Error> handleProductNotFoundException(ProductNotFoundException pnfex) {
+    protected ResponseEntity<Error> handleProductNotFoundException(ProductNotFoundException pnfex) {
         buildResponse(pnfex, HttpStatus.NOT_FOUND)
     }
 
-    ResponseEntity<Error> buildResponse(Exception ex, HttpStatus status) {
+    private ResponseEntity<Error> buildResponse(Exception ex, HttpStatus status) {
         def error = new Error(statusCode: status.value, message: ex.message)
         new ResponseEntity<Error>(error, status)
     }

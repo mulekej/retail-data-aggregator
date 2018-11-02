@@ -43,6 +43,7 @@ dependencies {
 
     implementation('org.codehaus.groovy:groovy')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.spockframework:spock-core:1.1-groovy-2.4')
 }
 
 dependencyManagement {
