@@ -2,7 +2,6 @@ package com.myretail.retaildataaggregator.services.redsky
 
 import com.myretail.retaildataaggregator.domain.redsky.Item
 import com.myretail.retaildataaggregator.domain.redsky.ProductWrapper
-import com.myretail.retaildataaggregator.repository.ProductRepository
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Service
@@ -18,8 +17,6 @@ class RedSkyService {
 
     @Resource
     RestTemplate restTemplate
-    @Resource
-    ProductRepository priceRepository
 
     @HystrixCommand(fallbackMethod = "searchFallback")
     Item getProductInfoByTcin(String tcin) {
