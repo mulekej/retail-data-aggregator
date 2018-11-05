@@ -10,6 +10,7 @@ buildscript {
     }
 }
 
+apply plugin: 'application'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -52,5 +53,16 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+startScripts {
+    classpath = files('$APP_HOME/conf/') + classpath
+    doLast {
+        def windowsStartScript = file(getWindowsScript())
+        def unixStartScript = file(getUnixScript())
+        
+        windowsStartScript.text = windowsStartScript.text.replace('%APP_HOME%\\lib\\conf', '%APP_HOME%\\conf')
+        unixStartScript.text = unixStartScript.text.replace('$APP_HOME/lib/conf', '$APP_HOME/conf')
     }
 }
