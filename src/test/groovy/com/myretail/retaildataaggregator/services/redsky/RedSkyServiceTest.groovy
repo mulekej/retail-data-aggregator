@@ -4,6 +4,7 @@ import com.myretail.retaildataaggregator.domain.redsky.Item
 import com.myretail.retaildataaggregator.domain.redsky.Product
 import com.myretail.retaildataaggregator.domain.redsky.ProductDescription
 import com.myretail.retaildataaggregator.domain.redsky.ProductWrapper
+import com.myretail.retaildataaggregator.services.RedSkyService
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

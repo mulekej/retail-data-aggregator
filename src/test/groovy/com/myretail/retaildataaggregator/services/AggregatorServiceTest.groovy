@@ -6,7 +6,6 @@ import com.myretail.retaildataaggregator.domain.redsky.Item
 import com.myretail.retaildataaggregator.domain.redsky.ProductDescription
 import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.repository.ProductRepository
-import com.myretail.retaildataaggregator.services.redsky.RedSkyService
 import groovy.util.logging.Slf4j
 import org.junit.Assert
 import org.junit.Before

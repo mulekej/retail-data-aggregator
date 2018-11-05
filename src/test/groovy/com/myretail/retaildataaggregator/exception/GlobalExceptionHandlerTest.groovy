@@ -50,7 +50,7 @@ class GlobalExceptionHandlerTest {
             assert it.hasBody()
             def errorBody = it.body
             assert errorBody.statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()
-            assert errorBody.message == "Warning, Warning"
+            assert errorBody.message == "Internal Error Occurred."
             assert dateTimeFormatter.format(errorBody.timeStamp) == dateTimeFormatter.format(currentTimeStamp)
         }
     }
