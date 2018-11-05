@@ -22,11 +22,12 @@ class ProductsController {
 
     @GetMapping("/{productId}")
     Product getProductInfoById(@PathVariable("productId") String productId) {
+        log.debug("requestType=GET productId=$productId")
         aggregatorService.getProductInfoById(productId)
     }
 
     @PutMapping("/{productId}")
     void updateProductInfoById(@PathVariable("productId") String productId) {
-
+        log.debug("requestType=PUT productId=$productId")
     }
 }

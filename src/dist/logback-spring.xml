@@ -1,0 +1,13 @@
+<configuration scan="true" scanPeriod="10 seconds">
+
+    <property name="LOG_FILE" value="logs/service.log"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
+
+    <logger name="com.myretail.retaildataaggregator" level="info"/>
+
+    <root level="warn">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+</configuration>

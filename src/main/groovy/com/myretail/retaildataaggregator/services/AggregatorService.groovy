@@ -4,11 +4,13 @@ import com.myretail.retaildataaggregator.domain.api.Product
 import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.repository.ProductRepository
 import com.myretail.retaildataaggregator.services.redsky.RedSkyService
+import groovy.util.logging.Slf4j
 import org.springframework.stereotype.Service
 
 import javax.annotation.Resource
 
 @Service
+@Slf4j
 class AggregatorService {
 
     @Resource
@@ -25,6 +27,7 @@ class AggregatorService {
             product.name = redSkyResult.productDescription.title
             product
         } else {
+            log.info("ProductNotFound for productId=$productId redSkyResultFound=${redSkyResult?.tcin as boolean} databaseResultFound=${product as boolean}")
             throw new ProductNotFoundException("Product Not Found for ID ${productId}")
         }
     }

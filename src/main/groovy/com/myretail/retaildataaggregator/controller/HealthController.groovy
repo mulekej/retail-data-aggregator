@@ -1,5 +1,6 @@
 package com.myretail.retaildataaggregator.controller
 
+import groovy.util.logging.Slf4j
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -9,6 +10,7 @@ import javax.annotation.PostConstruct
 
 @RestController
 @RequestMapping("/health")
+@Slf4j
 class HealthController {
 
     @Value('${spring.application.name}')
@@ -22,12 +24,15 @@ class HealthController {
 
     @GetMapping
     Map healthCheck() {
+        log.debug("Responding to health Check")
+        //Todo check hearbeat on external dependencies.
         ["applicationName": applicationName,
          "serverName": serverName]
     }
 
     @GetMapping("/ping")
     Map healthCheckPing() {
+        log.debug("Responding to health Check Ping")
         ["applicationName": applicationName,
         "serverName": serverName]
     }
