@@ -1,4 +1,4 @@
-package com.myretail.retaildataaggregator.services.redsky
+package com.myretail.retaildataaggregator.services
 
 import com.myretail.retaildataaggregator.domain.redsky.Item
 import com.myretail.retaildataaggregator.domain.redsky.Product
