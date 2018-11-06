@@ -38,7 +38,7 @@ class ProductsControllerTest extends Specification {
         response.id == "12345"
         response.name == "test product 1"
         response.price == new Price(value: 13.99, currencyCode: "CAD")
-        0 * productService.updateProductPrice(_, _)
+        0 * productService.updateProductPrice(_)
     }
 
     def "updateProductPriceById Success"() {
@@ -47,20 +47,46 @@ class ProductsControllerTest extends Specification {
         productController.updateProductPriceById(productId, product)
 
         then:
-        1 * productService.updateProductPrice(productId, product)
+        1 * productService.updateProductPrice(product)
         0 * _
         notThrown(ProductNotFoundException)
+    }
+
+    def "updateProductPriceById IdMisMatch"() {
+        setup:
+        productId = "23456"
+
+        when:
+        productController.updateProductPriceById(productId, product)
+
+        then:
+        def ex = thrown(BadRequestException)
+        ex.message == "ProductId in path ($productId) does not match id in body (${product.id})"
+        0 * _
     }
 
     def "addProductPriceById Success"() {
 
         when:
-        productController.addProductPriceById(product)
+        productController.addProductPriceById(productId, product)
 
         then:
         1 * productService.addProductPrice(product)
         0 * _
         notThrown(BadRequestException)
+    }
+
+    def "addProductPriceById IdMisMatch"() {
+        setup:
+        productId = "23456"
+
+        when:
+        productController.addProductPriceById(productId, product)
+
+        then:
+        def ex = thrown(BadRequestException)
+        ex.message == "ProductId in path ($productId) does not match id in body (${product.id})"
+        0 * _
     }
 
     def "deleteProductPriceById Success"() {

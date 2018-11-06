@@ -1,90 +1,86 @@
 package com.myretail.retaildataaggregator
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.myretail.retaildataaggregator.definition.TestDefinition
+import com.myretail.retaildataaggregator.domain.api.Price
 import com.myretail.retaildataaggregator.domain.api.Product
 import groovy.util.logging.Slf4j
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
-import org.springframework.core.io.ClassPathResource
 import org.springframework.http.HttpEntity
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
+import org.springframework.http.HttpStatus
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner
 import org.springframework.web.client.RestTemplate
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT
-import static org.springframework.http.HttpMethod.POST
-import static org.springframework.http.HttpMethod.PUT
 
 @Slf4j
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@RunWith(Parameterized)
+@RunWith(SpringJUnit4ClassRunner)
 class RegressionTest {
-
 
     @LocalServerPort
     protected int port
     protected String host = 'http://localhost'
     private String baseUrl
 
-    private String testName
-    private TestDefinition testDefinition
-
     private RestTemplate restTemplate
-
-    RegressionTest(String testName, TestDefinition testDefinition) {
-        this.testName = testName
-        this.testDefinition = testDefinition
-    }
-
-    @Parameterized.Parameters(name = "{0}")
-    static Iterable<Object[]> data() {
-        // cannot be injected because this method must be static
-        def objectMapper = new ObjectMapper()
-        objectMapper.registerModule(new JavaTimeModule())
-
-        def dir = new ClassPathResource("tests")
-        dir.file.listFiles().collect { testFile ->
-            def testDefinition = objectMapper.readValue(testFile, TestDefinition) as TestDefinition
-
-            [
-                    testDefinition.testName,
-                    testDefinition
-            ] as Object[]
-        }
-    }
+    private String productId
+    private HttpHeaders headers
 
     @Before
     void before() {
         baseUrl = "$host:$port/api/v1/products"
         restTemplate = new RestTemplate()
+        headers = new HttpHeaders()
+        headers.add('Authorization', "GenericToken")
+        productId = ""
     }
 
     @Test
-    void runTests() {
-        def method = HttpMethod.resolve(testDefinition.requestMethod)
-        def messageBody = buildMessageBody(method)
-
-        def response = restTemplate.exchange(baseUrl, method, messageBody, Product)
+    void getExistingProduct() {
+        productId = "52272903" //Lego Batman BluRay
+        def response = restTemplate.exchange("$baseUrl/$productId", HttpMethod.GET, null, Product)
         assert response
     }
 
-    def buildUrlPath(String requestMethod) {
-        def method = HttpMethod.resolve(requestMethod)
+    @Test
+    void addAndRemoveNewPriceForProduct() {
 
+        productId = "13016243"  //Gold Medal All Purpose Flour - 2lb
+        def newPrice = new Product(id: productId, price: new Price(value: 1.89, currencyCode: "USD"))
+        def requestEntity = new HttpEntity<Product>(newPrice, headers)
+        def addResponse = restTemplate.exchange("$baseUrl/$productId", HttpMethod.POST, requestEntity, Product)
+        assert addResponse
+        assert addResponse.statusCode == HttpStatus.OK
+        assert !addResponse.body
+
+        def deleteResponse = restTemplate.exchange("$baseUrl/$productId", HttpMethod.DELETE, new HttpEntity(headers), Product)
+        assert deleteResponse.statusCode == HttpStatus.OK
     }
 
-    HttpEntity<Product> buildMessageBody(HttpMethod method) {
-        def requestEntity
-        if ([POST, PUT].contains(method)) {
-            requestEntity = new HttpEntity<Product>(testDefinition.messageBody)
-        } else {
-            requestEntity = null
+    @Test
+    void updateExistingProduct() {
+        productId = "13397813" //Folgers
+        def newPrice = new Product(id: productId, price: new Price(value: 3.99, currencyCode: "USD"))
+        def requestEntity = new HttpEntity<Product>(newPrice, headers)
+        def updateResponse = restTemplate.exchange("$baseUrl/$productId", HttpMethod.PUT, requestEntity, Product)
+        assert updateResponse.statusCode == HttpStatus.OK
+
+        //check value was update
+        def getResponse = restTemplate.exchange("$baseUrl/$productId", HttpMethod.GET, null, Product)
+        assert getResponse.statusCode == HttpStatus.OK
+        def body = getResponse.body as Product
+        body.with {
+            assert id == productId
+            price.with {
+                assert value == 3.99
+                assert currencyCode == "USD"
+            }
         }
-        requestEntity
+
     }
 }

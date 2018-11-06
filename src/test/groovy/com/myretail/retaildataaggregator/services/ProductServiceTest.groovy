@@ -22,25 +22,12 @@ class ProductServiceTest extends Specification {
         productService = new ProductService(productRepository: productRepository)
     }
 
-    def "updateProductPrice IdMismatch"() {
-        setup:
-        product.id = "23456"
-
-        when:
-        productService.updateProductPrice(productId, product)
-
-        then:
-        def ex = thrown(BadRequestException)
-        ex.message == "ProductId in path (12345) does not match id in body (23456)"
-        0 * _
-    }
-
     def "updateProductPrice NonExistentProduct"() {
         setup:
         1 * productRepository.existsById(productId) >> false
 
         when:
-        productService.updateProductPrice(productId, product)
+        productService.updateProductPrice(product)
 
         then:
         def ex = thrown(ProductNotFoundException)
@@ -53,7 +40,7 @@ class ProductServiceTest extends Specification {
         1 * productRepository.existsById(productId) >> true
 
         when:
-        productService.updateProductPrice(productId, product)
+        productService.updateProductPrice(product)
 
         then:
         1 * productRepository.save(product)

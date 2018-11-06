@@ -24,11 +24,7 @@ class ProductService {
         }
     }
 
-    void updateProductPrice(String productId, Product product) throws ProductNotFoundException {
-
-        if (productId != product.id) {
-            throw new BadRequestException("ProductId in path ($productId) does not match id in body (${product.id})")
-        }
+    void updateProductPrice(Product product) throws ProductNotFoundException {
 
         if (productRepository.existsById(product.id)) {
             productRepository.save(product)
