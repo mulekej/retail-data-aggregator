@@ -25,6 +25,7 @@ class ServiceConfig {
                 "") //license url
         new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(info)
+                .ignoredParameterTypes(MetaClass)
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(Predicates.not(PathSelectors.regex('/error.*')))

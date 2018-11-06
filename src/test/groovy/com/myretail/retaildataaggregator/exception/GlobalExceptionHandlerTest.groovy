@@ -41,6 +41,21 @@ class GlobalExceptionHandlerTest {
     }
 
     @Test
+    void catchProductAlreadyExistsException() {
+        def pnfEx = new ProductAlreadyExistsException("Warning, Warning")
+        def response = exceptionHandler.handleException(pnfEx)
+
+        response.with {
+            assert it.statusCode == HttpStatus.BAD_REQUEST
+            assert it.hasBody()
+            def errorBody = it.body
+            assert errorBody.statusCode == HttpStatus.BAD_REQUEST.value()
+            assert errorBody.message == "Warning, Warning"
+            assert dateTimeFormatter.format(errorBody.timeStamp) == dateTimeFormatter.format(currentTimeStamp)
+        }
+    }
+
+    @Test
     void catchGeneralException() {
         def rtEx = new RuntimeException("Warning, Warning")
         def response = exceptionHandler.handleException(rtEx)

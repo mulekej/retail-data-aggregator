@@ -7,7 +7,7 @@ import groovy.transform.ToString
 
 @EqualsAndHashCode
 @ToString(includePackage = false)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = ["MetaClass"])
 class Price {
 
     double value

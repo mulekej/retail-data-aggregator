@@ -31,7 +31,7 @@ class ProductsController {
     }
 
     @PutMapping("/{productId}")
-    void updateProductInfoById(@PathVariable("productId") String productId, @RequestBody Product product) {
+    void updateProductPriceById(@PathVariable("productId") String productId, @RequestBody Product product) {
         log.debug("requestType=PUT productId=$productId")
         productService.updateProductPrice(productId, product)
     }
