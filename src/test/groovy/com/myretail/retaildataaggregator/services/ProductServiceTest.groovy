@@ -2,7 +2,7 @@ package com.myretail.retaildataaggregator.services
 
 import com.myretail.retaildataaggregator.domain.api.Price
 import com.myretail.retaildataaggregator.domain.api.Product
-import com.myretail.retaildataaggregator.exception.ProductAlreadyExistsException
+import com.myretail.retaildataaggregator.exception.BadRequestException
 import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.repository.ProductRepository
 import spock.lang.Specification
@@ -30,7 +30,7 @@ class ProductServiceTest extends Specification {
         productService.updateProductPrice(productId, product)
 
         then:
-        def ex = thrown(ProductNotFoundException)
+        def ex = thrown(BadRequestException)
         ex.message == "ProductId in path (12345) does not match id in body (23456)"
         0 * _
     }
@@ -67,7 +67,7 @@ class ProductServiceTest extends Specification {
         productService.addProductPrice(product)
 
         then:
-        notThrown(ProductAlreadyExistsException)
+        notThrown(BadRequestException)
         1 * productRepository.save(product)
     }
 
@@ -79,7 +79,7 @@ class ProductServiceTest extends Specification {
         productService.addProductPrice(product)
 
         then:
-        def ex = thrown(ProductAlreadyExistsException)
+        def ex = thrown(BadRequestException)
         ex.message == "Cannot add price for product, price already exists. Change request type to PUT to update price."
         0 * productRepository.save(product)
     }

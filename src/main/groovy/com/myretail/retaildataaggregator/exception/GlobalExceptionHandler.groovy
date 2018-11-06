@@ -13,7 +13,7 @@ class GlobalExceptionHandler {
     final ResponseEntity<Error> handleException(Exception ex) {
         if (ex instanceof ProductNotFoundException) {
             handleProductNotFoundException(ex)
-        } else if(ex instanceof ProductAlreadyExistsException) {
+        } else if(ex instanceof BadRequestException) {
             handleProductAlreadyExistsException(ex)
         } else {
             def genralException = new RuntimeException("Internal Error Occurred.")
@@ -25,7 +25,7 @@ class GlobalExceptionHandler {
         buildResponse(pnfex, HttpStatus.NOT_FOUND)
     }
 
-    protected ResponseEntity<Error> handleProductAlreadyExistsException(ProductAlreadyExistsException paeEx) {
+    protected ResponseEntity<Error> handleProductAlreadyExistsException(BadRequestException paeEx) {
         buildResponse(paeEx, HttpStatus.BAD_REQUEST)
     }
 

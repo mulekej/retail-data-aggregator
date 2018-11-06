@@ -42,7 +42,7 @@ class GlobalExceptionHandlerTest {
 
     @Test
     void catchProductAlreadyExistsException() {
-        def pnfEx = new ProductAlreadyExistsException("Warning, Warning")
+        def pnfEx = new BadRequestException("Warning, Warning")
         def response = exceptionHandler.handleException(pnfEx)
 
         response.with {

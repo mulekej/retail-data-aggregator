@@ -2,6 +2,7 @@ package com.myretail.retaildataaggregator.auth
 
 import org.springframework.http.HttpMethod
 import org.springframework.http.HttpStatus
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 
 import javax.servlet.FilterChain
@@ -15,6 +16,7 @@ import static org.springframework.http.HttpMethod.PATCH
 import static org.springframework.http.HttpMethod.POST
 import static org.springframework.http.HttpMethod.PUT
 
+@Component
 class WriteTokenFilter extends GenericFilterBean {
 
     @Override
