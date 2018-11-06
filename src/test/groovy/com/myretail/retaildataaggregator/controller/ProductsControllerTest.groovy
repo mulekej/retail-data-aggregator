@@ -3,6 +3,7 @@ package com.myretail.retaildataaggregator.controller
 
 import com.myretail.retaildataaggregator.domain.api.Price
 import com.myretail.retaildataaggregator.domain.api.Product
+import com.myretail.retaildataaggregator.exception.ProductAlreadyExistsException
 import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.services.AggregatorService
 import com.myretail.retaildataaggregator.services.ProductService
@@ -40,14 +41,25 @@ class ProductsControllerTest extends Specification {
         0 * productService.updateProductPrice(_, _)
     }
 
-    def "updateProductInfoById Success"() {
+    def "updateProductPriceById Success"() {
 
         when:
-        productController.updateProductInfoById(productId, product)
+        productController.updateProductPriceById(productId, product)
 
         then:
-        0 * aggregatorService.getProductInfoById(_)
         1 * productService.updateProductPrice(productId, product)
+        0 * _
         notThrown(ProductNotFoundException)
+    }
+
+    def "addProductPriceById Success"() {
+
+        when:
+        productController.addProductPriceById(product)
+
+        then:
+        1 * productService.addProductPrice(product)
+        0 * _
+        notThrown(ProductAlreadyExistsException)
     }
 }
