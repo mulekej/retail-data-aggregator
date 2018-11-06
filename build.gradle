@@ -35,12 +35,12 @@ ext {
 sourceSets {
     regressionTest {
         groovy.srcDir file('src/regressionTest/groovy')
-        groovy.srcDir file('src/regressionTest/resources')
+        resources.srcDir file('src/regressionTest/resources')
     }
 
     extTest {
         groovy.srcDir file('src/extTest/groovy')
-        groovy.srcDir file('src/extTest/resources')
+        resources.srcDir file('src/extTest/resources')
     }
 }
 
