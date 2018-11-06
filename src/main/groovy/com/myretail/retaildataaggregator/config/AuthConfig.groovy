@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration
 class AuthConfig {
 
     @Bean
-    FilterRegistrationBean authFilterRegistrationBean() {
-        def registrationBean = new FilterRegistrationBean(filter: new WriteTokenFilter())
-        registrationBean.addUrlPatterns("/api/*/products/*")
+    FilterRegistrationBean authFilterRegistrationBean(WriteTokenFilter writeTokenFilter) {
+        def registrationBean = new FilterRegistrationBean(filter: writeTokenFilter)
+        registrationBean.addUrlPatterns("/api/v1/products/*")
         registrationBean
     }
 }

@@ -3,7 +3,7 @@ package com.myretail.retaildataaggregator.controller
 
 import com.myretail.retaildataaggregator.domain.api.Price
 import com.myretail.retaildataaggregator.domain.api.Product
-import com.myretail.retaildataaggregator.exception.ProductAlreadyExistsException
+import com.myretail.retaildataaggregator.exception.BadRequestException
 import com.myretail.retaildataaggregator.exception.ProductNotFoundException
 import com.myretail.retaildataaggregator.services.AggregatorService
 import com.myretail.retaildataaggregator.services.ProductService
@@ -60,7 +60,7 @@ class ProductsControllerTest extends Specification {
         then:
         1 * productService.addProductPrice(product)
         0 * _
-        notThrown(ProductAlreadyExistsException)
+        notThrown(BadRequestException)
     }
 
     def "deleteProductPriceById Success"() {
@@ -71,6 +71,6 @@ class ProductsControllerTest extends Specification {
         then:
         1 * productService.deleteProductById(productId)
         0 * _
-        notThrown(ProductAlreadyExistsException)
+        notThrown(BadRequestException)
     }
 }
