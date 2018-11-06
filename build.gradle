@@ -32,6 +32,18 @@ ext {
     springCloudVersion = 'Greenwich.M1'
 }
 
+sourceSets {
+    regressionTest {
+        groovy.srcDir file('src/regressionTest/groovy')
+        groovy.srcDir file('src/regressionTest/resources')
+    }
+
+    extTest {
+        groovy.srcDir file('src/extTest/groovy')
+        groovy.srcDir file('src/extTest/resources')
+    }
+}
+
 dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-web')
@@ -45,10 +57,21 @@ dependencies {
     //Swagger Page
     implementation "io.springfox:springfox-swagger2:2.8.0"
     runtime "io.springfox:springfox-swagger-ui:2.8.0"
-
+    //Groovy
     implementation('org.codehaus.groovy:groovy')
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
     testImplementation('org.spockframework:spock-core:1.1-groovy-2.4')
+
+    regressionTestImplementation('org.codehaus.groovy:groovy')
+    regressionTestImplementation('org.springframework.boot:spring-boot-starter-test')
+    regressionTestImplementation configurations.implementation
+    regressionTestImplementation sourceSets.main.output
+
+    extTestImplementation('org.codehaus.groovy:groovy')
+    extTestImplementation('org.springframework.boot:spring-boot-starter-test')
+    extTestImplementation configurations.implementation
+    extTestImplementation sourceSets.main.output
 }
 
 dependencyManagement {
