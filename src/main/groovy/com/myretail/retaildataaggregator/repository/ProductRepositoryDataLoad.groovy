@@ -32,7 +32,7 @@ class ProductRepositoryDataLoad {
 
         log.debug("Products PreLoaded into MongoDb:")
         saveResult.each {
-            log.debug("${it}")
+            log.debug("Saved: ${it}")
         }
     }
 }

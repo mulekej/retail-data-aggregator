@@ -20,6 +20,8 @@ group = 'com.myretail'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
+mainClassName = 'com.myretail.retaildataaggregator.RetailDataAggregatorApplication'
+
 repositories {
     mavenCentral()
     maven { url "https://repo.spring.io/milestone" }
@@ -34,7 +36,6 @@ dependencies {
 
     implementation('org.springframework.boot:spring-boot-starter-web')
     implementation('org.springframework.boot:spring-boot-starter-actuator')
-    implementation('org.springframework.boot:spring-boot-starter-cache')
     //mongoDB
     implementation('org.springframework.boot:spring-boot-starter-data-mongodb')
 //    implementation('de.flapdoodle.embed:de.flapdoodle.embed.mongo')

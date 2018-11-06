@@ -7,8 +7,8 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean
 class AuthConfig {
 
 //    @Bean
-    FilterRegistrationBean authFilterRegistrationBean(WriteTokenFilter writeTokenFilter) {
-        def registrationBean = new FilterRegistrationBean(filter: writeTokenFilter)
+    FilterRegistrationBean authFilterRegistrationBean() {
+        def registrationBean = new FilterRegistrationBean(filter: new WriteTokenFilter())
         registrationBean.addUrlPatterns("/api/*/products/*")
         registrationBean
     }
