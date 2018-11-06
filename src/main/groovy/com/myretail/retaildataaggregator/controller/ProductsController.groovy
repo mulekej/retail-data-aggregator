@@ -4,6 +4,7 @@ import com.myretail.retaildataaggregator.domain.api.Product
 import com.myretail.retaildataaggregator.services.AggregatorService
 import com.myretail.retaildataaggregator.services.ProductService
 import groovy.util.logging.Slf4j
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -41,5 +42,11 @@ class ProductsController {
     void updateProductPriceById(@PathVariable("productId") String productId, @RequestBody Product product) {
         log.debug("requestType=PUT productId=$productId")
         productService.updateProductPrice(productId, product)
+    }
+
+    @DeleteMapping("/{productId}")
+    void updateProductPriceById(@PathVariable("productId") String productId) {
+        log.debug("requestType=DELETE productId=$productId")
+        productService.deleteProductById(productId)
     }
 }

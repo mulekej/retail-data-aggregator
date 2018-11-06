@@ -36,4 +36,12 @@ class ProductService {
             throw new ProductNotFoundException("Product Not Found, Unable to update product for id=${product.id}")
         }
     }
+
+    void deleteProductById(String productId) {
+        if (productRepository.existsById(productId)) {
+            productRepository.deleteById(productId)
+        } else {
+            throw new ProductNotFoundException("Product Not Found, Unable to delete product for id=$productId")
+        }
+    }
 }

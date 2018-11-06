@@ -84,4 +84,28 @@ class ProductServiceTest extends Specification {
         0 * productRepository.save(product)
     }
 
+    def "deleteProductPrice Success"() {
+        setup:
+        1 * productRepository.existsById(productId) >> true
+
+        when:
+        productService.deleteProductById(productId)
+
+        then:
+        1 * productRepository.deleteById(productId)
+    }
+
+    def "deleteProductPrice ProductNotFound"() {
+        setup:
+        1 * productRepository.existsById(productId) >> false
+
+        when:
+        productService.deleteProductById(productId)
+
+        then:
+        def ex = thrown(ProductNotFoundException)
+        ex.message == "Product Not Found, Unable to delete product for id=$productId"
+        0 * productRepository.deleteById(productId)
+    }
+
 }
