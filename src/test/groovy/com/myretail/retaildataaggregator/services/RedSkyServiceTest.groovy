@@ -48,4 +48,12 @@ class RedSkyServiceTest extends Specification {
         then:
         !result.tcin
     }
+
+    def "searchFallbackReturnNull"() {
+        when:
+        def result = redSkyService.searchFallback(productId)
+
+        then:
+        result == null
+    }
 }
