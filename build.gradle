@@ -80,6 +80,11 @@ dependencyManagement {
     }
 }
 
+task extTest(type: Test) {
+    testClassesDirs = sourceSets.extTest.output.classesDirs
+    classpath = sourceSets.extTest.runtimeClasspath
+}
+
 startScripts {
     classpath = files('$APP_HOME/conf/') + classpath
     doLast {
