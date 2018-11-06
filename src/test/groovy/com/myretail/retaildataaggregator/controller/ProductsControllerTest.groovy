@@ -62,4 +62,15 @@ class ProductsControllerTest extends Specification {
         0 * _
         notThrown(ProductAlreadyExistsException)
     }
+
+    def "deleteProductPriceById Success"() {
+
+        when:
+        productController.deleteProductPriceById(productId)
+
+        then:
+        1 * productService.deleteProductById(productId)
+        0 * _
+        notThrown(ProductAlreadyExistsException)
+    }
 }

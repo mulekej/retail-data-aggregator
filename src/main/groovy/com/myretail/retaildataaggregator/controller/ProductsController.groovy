@@ -45,7 +45,7 @@ class ProductsController {
     }
 
     @DeleteMapping("/{productId}")
-    void updateProductPriceById(@PathVariable("productId") String productId) {
+    void deleteProductPriceById(@PathVariable("productId") String productId) {
         log.debug("requestType=DELETE productId=$productId")
         productService.deleteProductById(productId)
     }
