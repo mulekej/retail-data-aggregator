@@ -25,7 +25,7 @@ class HealthController {
     @GetMapping
     Map healthCheck() {
         log.debug("Responding to health Check")
-        //Todo check hearbeat on external dependencies.
+        //Todo check heartbeat on external dependencies.
         ["applicationName": applicationName,
          "serverName": serverName]
     }
