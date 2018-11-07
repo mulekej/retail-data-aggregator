@@ -16,8 +16,8 @@ class GlobalExceptionHandler {
         } else if(ex instanceof BadRequestException) {
             handleProductAlreadyExistsException(ex)
         } else {
-            def genralException = new RuntimeException("Internal Error Occurred.")
-            buildResponse(genralException, HttpStatus.INTERNAL_SERVER_ERROR)
+            def generalException = new RuntimeException("Internal Error Occurred.")
+            buildResponse(generalException, HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }
 

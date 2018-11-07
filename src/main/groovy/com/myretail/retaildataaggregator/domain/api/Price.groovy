@@ -11,7 +11,6 @@ import groovy.transform.ToString
 class Price {
 
     double value
-
     @JsonProperty("currency_code")
     String currencyCode
 }

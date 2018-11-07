@@ -9,7 +9,4 @@ import org.springframework.stereotype.Repository
 interface ProductRepository extends MongoRepository<Product, String> {
 
     Product getProductById(String productId)
-//    {
-//        new Product(id: productId, price: new Price(value: 19.96, currencyCode: "USD"))
-//    }
 }

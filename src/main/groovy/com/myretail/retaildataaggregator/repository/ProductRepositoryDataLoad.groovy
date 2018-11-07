@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct
 import javax.annotation.Resource
 
 /*
-    Used for POC purposes only, remove in actual deployment.
+    Used for POC purposes only, remove in actual deployment, or restrict to dev profile
  */
 @Service
 @Slf4j
@@ -20,6 +20,10 @@ class ProductRepositoryDataLoad {
 
     @PostConstruct
     private void init (){
+        //purge exist products
+        productRepository.deleteAll()
+
+        //add new products
         def products = [
                 new Product(id: "13860428", price: new Price(value: 13.99, currencyCode: "USD")),
                 new Product(id: "52602890", price: new Price(value: 487.99, currencyCode: "USD")),
