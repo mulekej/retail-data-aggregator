@@ -32,14 +32,31 @@ http://localhost:9022/swagger-ui.html
 #### Get Product By Id
 `curl -X GET "http://localhost:9022/api/v1/products/52272903"`
 
+```
+{
+  "id": "52272903",
+  "name": "The LEGO Batman Movie (Blu-ray)",
+  "current_price": {
+    "value": 15,
+    "currency_code": "USD"
+  }
+}
+```
+
 #### Add Product
 `curl -X POST "http://localhost:9022/api/v1/products/13016243" -H "accept: */*" -H "Authorization: Any Old Auth Token" -H "Content-Type: application/json" -d "{ \"current_price\": { \"currency_code\": \"USD\", \"value\": 13.99 }, \"id\": \"13016243\"}"`
+
+Returns empty 200 response
 
 #### update Product Price
 `curl -X PUT "http://localhost:9022/api/v1/products/13016243" -H "accept: */*" -H "Authorization: Any Old Auth Token" -H "Content-Type: application/json" -d "{ \"current_price\": { \"currency_code\": \"NZD\", \"value\": 0 }, \"id\": \"13016243\"}"`
 
+Returns empty 200 response
+
 #### Delete Product By Id
 `curl -X DELETE "http://localhost:9022/api/v1/products/13016243" -H "accept: */*" -H "Authorization: Any Old Auth Token"`
+
+Returns empty 200 response
 
 ### Running project tests
 Tests Run in gradle can be found in:
