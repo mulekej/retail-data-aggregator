@@ -12,11 +12,11 @@ for the RedSky api with pricing information stored in the database.
 * Built using Intellij
 
 ## Running the application
-###Environment Setup
+### Environment Setup
 MongoDb will need to be installed and running on port 27017 to run the app
 without config changes. An embedded instance was skipped to the the length of boot times it incurred.
  
-###Gradle
+### Gradle
 `gradlew clean run`
 
 ### Intellij
